@@ -1,0 +1,15 @@
+<h1>Deleted Tasks</h1>
+<div class="flex-center action-buttons">
+  <button mat-stroked-button routerLink="/">
+    <mat-icon>arrow_back</mat-icon>
+    Home
+  </button>
+  <span class="flex-fill"></span>
+  <button (click)="restoreAll()" color="primary" mat-raised-button>Restore All</button>
+  <button (click)="deleteAll()" color="warn" mat-raised-button>Delete All</button>
+</div>
+<div class="deleted">
+  @for (item of data.deleted; track item.id) {
+    <app-task-item [taskItem]="item"></app-task-item>
+  }
+</div>

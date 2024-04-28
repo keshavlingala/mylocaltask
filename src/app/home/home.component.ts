@@ -1,8 +1,9 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {
   CdkDrag,
   CdkDragDrop,
   CdkDragHandle,
+  CdkDragPreview,
   CdkDropList,
   moveItemInArray,
   transferArrayItem
@@ -15,7 +16,9 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {AutofocusDirective} from "../autofocus.directive";
 import {TaskItemComponent} from "../task-item/task-item.component";
 import {Task, TaskData} from "../models";
-import {MatFabButton} from "@angular/material/button";
+import {MatFabButton, MatIconButton} from "@angular/material/button";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {TaskService} from "../task.service";
 
 @Component({
   selector: 'app-home',
@@ -35,23 +38,32 @@ import {MatFabButton} from "@angular/material/button";
     MatFabButton,
     NgIf,
     NgClass,
-    NgStyle
+    NgStyle,
+    CdkDragPreview,
+    MatMenuTrigger,
+    MatMenuItem,
+    MatMenu,
+    MatIconButton,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges {
   data: TaskData = {
     backlog: [],
     inProgress: [],
     completed: [],
     deleted: []
   }
-  public isDragging: boolean = false;
+
+  constructor(
+    private taskService: TaskService
+  ) {
+
+  }
 
   ngOnInit(): void {
-    this.data = JSON.parse(localStorage.getItem('taskData') || '') || this.data;
-    console.log(this)
+    this.data = this.taskService.data;
   }
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -65,12 +77,12 @@ export class HomeComponent implements OnInit {
         event.currentIndex,
       );
     }
-    this.taskUpdated();
+    this.taskUpdated()
   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.shiftKey && event.key === 'N') {
+    if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
       this.addBacklog();
       event.preventDefault();
     }
@@ -82,15 +94,26 @@ export class HomeComponent implements OnInit {
       editing: true,
       id: Date.now()
     });
-  }
-
-  dragChange($event: boolean) {
-    this.isDragging = $event;
+    this.taskUpdated();
   }
 
   taskUpdated() {
-    console.log('Task Updated')
-    localStorage.setItem('taskData', JSON.stringify(this.data));
+    this.taskService.data = this.data;
   }
+
+
+  deleteTask(item: any) {
+    this.data.deleted.push(item);
+    this.data.backlog = this.data.backlog.filter(i => i.id !== item.id);
+    this.data.inProgress = this.data.inProgress.filter(i => i.id !== item.id);
+    this.data.completed = this.data.completed.filter(i => i.id !== item.id);
+    this.taskUpdated();
+  }
+
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.taskUpdated();
+  }
+
 }
 

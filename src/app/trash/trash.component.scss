@@ -1,0 +1,12 @@
+.deleted {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  margin: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 5px;
+}

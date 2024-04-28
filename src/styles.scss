@@ -53,3 +53,21 @@ h2 {
 .flex-fill {
   flex: 1;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.flex-center {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.font-medium {
+  font-size: medium;
+}
+
+.color-red {
+  color: red;
+}

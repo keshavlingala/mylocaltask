@@ -65,12 +65,16 @@
   height: 150px;
   position: fixed;
   bottom: 0;
-  left: 50%;
+  right: 0;
   background: transparent;
-  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+
+  .cdk-drag-placeholder {
+    display: none;
+  }
 }
 
 .delete-area .show {

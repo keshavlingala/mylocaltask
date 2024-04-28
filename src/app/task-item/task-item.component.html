@@ -3,8 +3,6 @@
      matTooltipShowDelay="500"
      matTooltipHideDelay="500"
      matTooltip="Double Click to Edit"
-     (cdkDragEnded)="ended()"
-     (cdkDragStarted)="started()"
      cdkDrag cdkDragHandle>
   <div class="handle" [ngClass]="task.favorite ? 'orange' : 'gray'" (click)="toggleFavorite(task)">
     <mat-icon>star</mat-icon>
@@ -21,4 +19,8 @@
     <span class="task-text"
     >{{ task.title }}</span>
   }
+  <div class="actions">
+    <mat-icon (click)="deleteTask(task)" class="pointer font-medium color-red flex-center" matTooltip="Delete!">delete
+    </mat-icon>
+  </div>
 </div>

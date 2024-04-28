@@ -11,11 +11,11 @@
 
 
 <mat-menu #options="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item routerLink="/trash">
     <mat-icon color="warn">delete</mat-icon>
     <span>Show Deleted</span>
   </button>
-  <button mat-menu-item>
+  <button (click)="downloadTasks()" mat-menu-item>
     <mat-icon>download</mat-icon>
     <span>Download Notes</span>
   </button>
