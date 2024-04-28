@@ -15,7 +15,6 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  cursor: move;
 }
 
 .task-item {
@@ -34,7 +33,7 @@
   transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);;
 }
 
-:host{
+:host {
   width: 100%;
 }
 
@@ -56,3 +55,10 @@
 }
 
 
+.gray {
+  color: gray !important;
+}
+
+.orange {
+  color: orange !important;
+}

@@ -5,6 +5,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 
 import {Task} from "../models";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-task-item',
@@ -14,7 +15,8 @@ import {Task} from "../models";
     CdkDrag,
     CdkDragHandle,
     MatIcon,
-    MatTooltip
+    MatTooltip,
+    NgClass
   ],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss',
@@ -37,5 +39,10 @@ export class TaskItemComponent {
     if ($event.key === 'Enter') {
       item.editing = false;
     }
+  }
+
+  toggleFavorite(task: Task) {
+    task.favorite = !task.favorite;
+    console.log('toggleFavorite', task)
   }
 }
