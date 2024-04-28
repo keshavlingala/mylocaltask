@@ -1,0 +1,23 @@
+<div class="task-item"
+     (dblclick)="editOn(task)"
+     matTooltipShowDelay="500"
+     matTooltipHideDelay="500"
+     matTooltip="Double Click to Edit"
+     cdkDrag cdkDragHandle>
+  <div class="handle" >
+    <mat-icon>star</mat-icon>
+  </div>
+  @if (task.editing) {
+    <input placeholder="Enter Task Name"
+           class="edit-input"
+           type="text"
+           (keyup)="editHandler($event, task)"
+           [value]="task.title"
+           (keyup.enter)="editOff($event,task)"
+           (blur)="editOff($event,task)"
+           ngAutoFocus/>
+  } @else {
+    <span class="task-text"
+    >{{ task.title }}</span>
+  }
+</div>

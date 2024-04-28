@@ -10,12 +10,10 @@
       [cdkDropListConnectedTo]="[todoList,doneList]"
       class="tasks"
       (cdkDropListDropped)="drop($event)">
-      @for (item of backlog; track item) {
-        <div class="task-item" cdkDrag>
-          {{ item }}
-        </div>
+      @for (item of backlog; track item.id; let idx = $index) {
+        <app-task-item [taskItem]="item"></app-task-item>
       }
-      <div (click)="addBacklog()" style="cursor: pointer" class="task-item add-task">
+      <div (click)="addBacklog()" style="cursor: pointer" class="add-task">
         <mat-icon>add</mat-icon>
       </div>
     </div>
@@ -31,8 +29,8 @@
       [cdkDropListConnectedTo]="[doneList,backlogList]"
       class="tasks"
       (cdkDropListDropped)="drop($event)">
-      @for (item of todo; track item) {
-        <div class="task-item" cdkDrag>{{ item }}</div>
+      @for (item of todo; track item.title) {
+        <app-task-item [taskItem]="item"></app-task-item>
       }
     </div>
   </div>
@@ -47,8 +45,8 @@
       [cdkDropListConnectedTo]="[todoList,backlogList]"
       class="tasks"
       (cdkDropListDropped)="drop($event)">
-      @for (item of done; track item) {
-        <div class="task-item" cdkDrag>{{ item }}</div>
+      @for (item of done; track item.title) {
+        <app-task-item [taskItem]="item"></app-task-item>
       }
     </div>
   </div>
