@@ -14,4 +14,8 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 })
 export class AppComponent {
   title = 'task-app';
+
+  clearAll() {
+    localStorage.clear()
+  }
 }
