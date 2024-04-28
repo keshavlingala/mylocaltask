@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {AutofocusDirective} from "../autofocus.directive";
 import {CdkDrag, CdkDragHandle} from "@angular/cdk/drag-drop";
 import {MatIcon} from "@angular/material/icon";
@@ -10,14 +10,7 @@ import {NgClass} from "@angular/common";
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [
-    AutofocusDirective,
-    CdkDrag,
-    CdkDragHandle,
-    MatIcon,
-    MatTooltip,
-    NgClass
-  ],
+  imports: [AutofocusDirective, CdkDrag, CdkDragHandle, MatIcon, MatTooltip, NgClass],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss',
 })
