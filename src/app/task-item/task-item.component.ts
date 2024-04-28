@@ -22,7 +22,6 @@ export class TaskItemComponent {
   editOff(event: Event, item: Task) {
     item.editing = false;
     item.title = (event.target as HTMLInputElement).value;
-    console.log('Updated task:', item);
     this.updatedTask.emit(item);
     event.preventDefault();
   }

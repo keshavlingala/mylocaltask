@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.data = JSON.parse(localStorage.getItem('taskData') || '') || this.data;
+    console.log(this)
   }
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -64,6 +65,7 @@ export class HomeComponent implements OnInit {
         event.currentIndex,
       );
     }
+    this.taskUpdated();
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -87,6 +89,7 @@ export class HomeComponent implements OnInit {
   }
 
   taskUpdated() {
+    console.log('Task Updated')
     localStorage.setItem('taskData', JSON.stringify(this.data));
   }
 }
