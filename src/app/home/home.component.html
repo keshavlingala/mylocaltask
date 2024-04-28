@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="status">
+    <div class="title">
+      <h2>Backlog</h2>
+    </div>
+    <div
+      cdkDropList
+      #backlogList="cdkDropList"
+      [cdkDropListData]="backlog"
+      [cdkDropListConnectedTo]="[todoList,doneList]"
+      class="tasks"
+      (cdkDropListDropped)="drop($event)">
+      @for (item of backlog; track item) {
+        <div class="task-item" cdkDrag>
+          {{ item }}
+        </div>
+      }
+      <div (click)="addBacklog()" style="cursor: pointer" class="task-item add-task">
+        <mat-icon>add</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div class="status">
+    <div class="title">
+      <h2>In Progress</h2>
+    </div>
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[doneList,backlogList]"
+      class="tasks"
+      (cdkDropListDropped)="drop($event)">
+      @for (item of todo; track item) {
+        <div class="task-item" cdkDrag>{{ item }}</div>
+      }
+    </div>
+  </div>
+  <div class="status">
+    <div class="title">
+      <h2>Completed</h2>
+    </div>
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList,backlogList]"
+      class="tasks"
+      (cdkDropListDropped)="drop($event)">
+      @for (item of done; track item) {
+        <div class="task-item" cdkDrag>{{ item }}</div>
+      }
+    </div>
+  </div>
+</div>
