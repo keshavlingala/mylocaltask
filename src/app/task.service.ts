@@ -17,7 +17,7 @@ export class TaskService {
         localStorage.setItem('taskData', JSON.stringify(data))
       },
       error: (e) => {
-        console.log('Error saving data to local storage')
+        console.log('Error saving data to local storage', e)
       }
     })
   }
