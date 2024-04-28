@@ -1,23 +1,8 @@
 import {Component, HostListener, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDragHandle,
-  CdkDragPreview,
-  CdkDropList,
-  moveItemInArray,
-  transferArrayItem
-} from "@angular/cdk/drag-drop";
+import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {MatIcon} from "@angular/material/icon";
-import {FormsModule} from "@angular/forms";
-import {MatFormField, MatInput} from "@angular/material/input";
-import {NgClass, NgIf, NgStyle, SlicePipe} from "@angular/common";
-import {MatTooltip} from "@angular/material/tooltip";
-import {AutofocusDirective} from "../autofocus.directive";
 import {TaskItemComponent} from "../task-item/task-item.component";
 import {Task, TaskData} from "../models";
-import {MatFabButton, MatIconButton} from "@angular/material/button";
-import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {TaskService} from "../task.service";
 
 @Component({
@@ -25,25 +10,8 @@ import {TaskService} from "../task.service";
   standalone: true,
   imports: [
     CdkDropList,
-    CdkDrag,
-    MatIcon,
-    CdkDragHandle,
-    FormsModule,
-    MatInput,
-    MatFormField,
-    SlicePipe,
-    MatTooltip,
-    AutofocusDirective,
     TaskItemComponent,
-    MatFabButton,
-    NgIf,
-    NgClass,
-    NgStyle,
-    CdkDragPreview,
-    MatMenuTrigger,
-    MatMenuItem,
-    MatMenu,
-    MatIconButton,
+    MatIcon
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

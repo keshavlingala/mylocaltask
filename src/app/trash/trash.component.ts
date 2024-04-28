@@ -1,21 +1,21 @@
 import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {TaskData} from "../models";
+import {TaskService} from "../task.service";
+import {MatButton} from "@angular/material/button";
+import {RouterLink} from "@angular/router";
 import {TaskItemComponent} from "../task-item/task-item.component";
 import {MatIcon} from "@angular/material/icon";
-import {RouterLink} from "@angular/router";
-import {MatButton} from "@angular/material/button";
-import {TaskService} from "../task.service";
 
 @Component({
   selector: 'app-trash',
   standalone: true,
-  imports: [
-    TaskItemComponent,
-    MatIcon,
-    RouterLink,
-    MatButton
-  ],
   templateUrl: './trash.component.html',
+  imports: [
+    MatButton,
+    RouterLink,
+    TaskItemComponent,
+    MatIcon
+  ],
   styleUrl: './trash.component.scss'
 })
 export class TrashComponent implements OnChanges {
