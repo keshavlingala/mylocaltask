@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AutofocusDirective} from "../autofocus.directive";
 import {CdkDrag, CdkDragHandle} from "@angular/cdk/drag-drop";
 import {MatIcon} from "@angular/material/icon";
@@ -16,11 +16,14 @@ import {NgClass} from "@angular/common";
 })
 export class TaskItemComponent {
   @Input({required: true, alias: 'taskItem'}) task!: Task;
-
+  @Output() isDragging = new EventEmitter<boolean>();
+  @Output() updatedTask = new EventEmitter<Task>();
 
   editOff(event: Event, item: Task) {
     item.editing = false;
     item.title = (event.target as HTMLInputElement).value;
+    console.log('Updated task:', item);
+    this.updatedTask.emit(item);
     event.preventDefault();
   }
 
@@ -28,14 +31,17 @@ export class TaskItemComponent {
     item.editing = true;
   }
 
-  editHandler($event: KeyboardEvent, item: Task) {
-    if ($event.key === 'Enter') {
-      item.editing = false;
-    }
-  }
 
   toggleFavorite(task: Task) {
     task.favorite = !task.favorite;
     console.log('toggleFavorite', task)
+  }
+
+  started() {
+    this.isDragging.emit(true);
+  }
+
+  ended() {
+    this.isDragging.emit(false);
   }
 }

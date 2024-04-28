@@ -6,12 +6,13 @@
     <div
       cdkDropList
       #backlogList="cdkDropList"
-      [cdkDropListData]="backlog"
-      [cdkDropListConnectedTo]="[todoList,doneList]"
+      [cdkDropListConnectedTo]="[todoList,doneList,deleteList]"
+      [cdkDropListData]="data.backlog"
       class="tasks"
       (cdkDropListDropped)="drop($event)">
-      @for (item of backlog; track item.id; let idx = $index) {
-        <app-task-item [taskItem]="item"></app-task-item>
+      @for (item of data.backlog; track item.id; ) {
+        <app-task-item (updatedTask)="taskUpdated()" (isDragging)="dragChange($event)"
+                       [taskItem]="item"></app-task-item>
       }
       <div (click)="addBacklog()" style="cursor: pointer" class="add-task">
         <mat-icon>add</mat-icon>
@@ -25,12 +26,13 @@
     <div
       cdkDropList
       #todoList="cdkDropList"
-      [cdkDropListData]="todo"
-      [cdkDropListConnectedTo]="[doneList,backlogList]"
+      [cdkDropListConnectedTo]="[doneList,backlogList,deleteList]"
+      [cdkDropListData]="data.inProgress"
       class="tasks"
       (cdkDropListDropped)="drop($event)">
-      @for (item of todo; track item.title) {
-        <app-task-item [taskItem]="item"></app-task-item>
+      @for (item of data.inProgress; track item.id) {
+        <app-task-item (updatedTask)="taskUpdated()" (isDragging)="dragChange($event)"
+                       [taskItem]="item"></app-task-item>
       }
     </div>
   </div>
@@ -41,13 +43,27 @@
     <div
       cdkDropList
       #doneList="cdkDropList"
-      [cdkDropListData]="done"
-      [cdkDropListConnectedTo]="[todoList,backlogList]"
+      [cdkDropListConnectedTo]="[todoList,backlogList,deleteList]"
+      [cdkDropListData]="data.completed"
       class="tasks"
       (cdkDropListDropped)="drop($event)">
-      @for (item of done; track item.title) {
-        <app-task-item [taskItem]="item"></app-task-item>
+      @for (item of data.completed; track item.title) {
+        <app-task-item (updatedTask)="taskUpdated()" (isDragging)="dragChange($event)"
+                       [taskItem]="item"></app-task-item>
       }
     </div>
   </div>
+</div>
+
+<div
+  #deleteList="cdkDropList"
+  (cdkDropListDropped)="drop($event)"
+  [cdkDropListConnectedTo]="[todoList,backlogList,doneList]"
+  [cdkDropListData]="data.deleted"
+  [ngStyle]="isDragging ? {'display': 'block'} : {'display': 'none'}"
+  cdkDropList
+  class="delete-area">
+  <button aria-label="Example icon button with a delete icon" class="delete-button" color="warn" mat-fab>
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>

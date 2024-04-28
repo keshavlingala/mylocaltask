@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -10,11 +10,12 @@ import {
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule} from "@angular/forms";
 import {MatFormField, MatInput} from "@angular/material/input";
-import {SlicePipe} from "@angular/common";
+import {NgClass, NgIf, NgStyle, SlicePipe} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
 import {AutofocusDirective} from "../autofocus.directive";
 import {TaskItemComponent} from "../task-item/task-item.component";
-import {Task} from "../models";
+import {Task, TaskData} from "../models";
+import {MatFabButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-home',
@@ -30,37 +31,27 @@ import {Task} from "../models";
     SlicePipe,
     MatTooltip,
     AutofocusDirective,
-    TaskItemComponent
+    TaskItemComponent,
+    MatFabButton,
+    NgIf,
+    NgClass,
+    NgStyle
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
-  backlog = ['Hello', 'Something', 'Something else']
-    .map(item => {
-      return {
-        title: item,
-        editing: false,
-        id: Date.now()
-      } as Task
-    })
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep']
-    .map(item => {
-      return {
-        title: item,
-        editing: false,
-        id: Date.now()
-      } as Task
-    })
+export class HomeComponent implements OnInit {
+  data: TaskData = {
+    backlog: [],
+    inProgress: [],
+    completed: [],
+    deleted: []
+  }
+  public isDragging: boolean = false;
 
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog']
-    .map(item => {
-      return {
-        title: item,
-        editing: false,
-        id: Date.now()
-      } as Task
-    })
+  ngOnInit(): void {
+    this.data = JSON.parse(localStorage.getItem('taskData') || '') || this.data;
+  }
 
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
@@ -75,13 +66,28 @@ export class HomeComponent {
     }
   }
 
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.shiftKey && event.key === 'N') {
+      this.addBacklog();
+      event.preventDefault();
+    }
+  }
+
   addBacklog() {
-    this.backlog.push({
+    this.data.backlog.push({
       title: '',
       editing: true,
       id: Date.now()
     });
   }
 
+  dragChange($event: boolean) {
+    this.isDragging = $event;
+  }
+
+  taskUpdated() {
+    localStorage.setItem('taskData', JSON.stringify(this.data));
+  }
 }
 

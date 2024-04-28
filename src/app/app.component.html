@@ -1,6 +1,26 @@
 <mat-toolbar>
   Task Manager
+  <span class="flex-fill"></span>
+  <button [matMenuTriggerFor]="options" mat-icon-button>
+    <mat-icon>more_vert</mat-icon>
+  </button>
 </mat-toolbar>
 <div class="container">
   <router-outlet></router-outlet>
 </div>
+
+
+<mat-menu #options="matMenu">
+  <button mat-menu-item>
+    <mat-icon color="warn">delete</mat-icon>
+    <span>Show Deleted</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>download</mat-icon>
+    <span>Download Notes</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+</mat-menu>
