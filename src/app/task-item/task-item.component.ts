@@ -5,6 +5,7 @@ import {MatTooltip} from "@angular/material/tooltip";
 
 import {Task} from "../models";
 import {NgClass} from "@angular/common";
+import {CdkDrag, CdkDragHandle} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-task-item',
@@ -15,7 +16,9 @@ import {NgClass} from "@angular/common";
     MatTooltip,
     NgClass,
     MatIcon,
-    AutofocusDirective
+    AutofocusDirective,
+    CdkDrag,
+    CdkDragHandle
   ]
 })
 export class TaskItemComponent {
