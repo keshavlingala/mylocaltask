@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {TaskData} from "./models";
+import {helpData} from "./utils";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class TaskService {
     try {
       this._data.next(JSON.parse(localStorage.getItem('taskData') || ''))
     } catch (e) {
-      console.log('Error parsing data from local storage')
+      this._data.next(helpData)
     }
     this._data.asObservable().subscribe({
       next: (data) => {
