@@ -1,5 +1,5 @@
 import {Component, OnChanges, SimpleChanges} from '@angular/core';
-import {TaskData} from "../models";
+import {Task, TaskData} from "../models";
 import {TaskService} from "../task.service";
 import {MatButton} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
@@ -44,6 +44,15 @@ export class TrashComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.updateData()
+  }
+
+  updateTask($event: Task | null) {
+    this.taskService.data = this.data
+  }
+
+  deletedTask($event: Task) {
+    this.data.deleted = this.data.deleted.filter(task => task !== $event)
+    this.taskService.data = this.data
   }
 
   private updateData() {

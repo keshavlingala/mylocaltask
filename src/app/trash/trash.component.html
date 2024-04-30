@@ -10,6 +10,10 @@
 </div>
 <div class="deleted">
   @for (item of data.deleted; track item.id) {
-    <app-task-item [taskItem]="item"></app-task-item>
+    <app-task-item
+      (updatedTask)="updateTask($event)"
+      (deletedTask)="deletedTask($event)"
+      [dragDisabled]="true"
+      [taskItem]="item"></app-task-item>
   }
 </div>

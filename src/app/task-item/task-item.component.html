@@ -3,6 +3,7 @@
      matTooltipShowDelay="500"
      matTooltipHideDelay="500"
      matTooltip="Double Click to Edit"
+     [cdkDragDisabled]="dragDisabled"
      cdkDrag cdkDragHandle>
   <div class="handle" [ngClass]="task.favorite ? 'orange' : 'gray'" (click)="toggleFavorite(task)">
     <mat-icon>star</mat-icon>
