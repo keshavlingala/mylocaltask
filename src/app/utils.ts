@@ -1,6 +1,11 @@
 export const helpData = {
   "backlog": [
     {
+      "title": "Drag each task to change it's status",
+      "editing": false,
+      "id": 1714510569645
+    },
+    {
       "title": "Double Click on Task name to Edit the Task",
       "editing": false,
       "id": 1714356799971
